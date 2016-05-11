@@ -18,10 +18,11 @@
 
     for(i=0;i<length;i++){
     var decode = input1.charCodeAt(i)-verschiebung;
-
-    if (decode < 64)
+    var modulo = decode%verschiebung;
+    //alert(modulo);
+    if (decode < 65)
     {
-     decode = 91 - verschiebung;
+     decode = 90 -( 64 - decode );
     }
 
     var meinArray = [decode];
