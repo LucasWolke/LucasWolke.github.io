@@ -1,0 +1,61 @@
+<html>
+<meta charset = "utf-8">
+<script>
+function encode(){
+  var input1 = document.getElementById("input1").value;
+  var length = input1.length;
+  //parseFloat macht aus String Intenger! <3
+  var verschiebung = parseFloat(document.getElementById("input3").value);
+
+  for(i=0;i<length;i++){
+  var decode = input1.charCodeAt(i)+verschiebung;
+  var toomuch = decode;
+if (decode > 90)
+{
+ decode = 64 + decode -90;
+}
+
+  var meinArray = [decode];
+
+    //document.write(meinArray);
+
+  var back = String.fromCharCode(meinArray);
+  var secondArray = [back]+" ";
+
+  console.log(secondArray);
+  var secondArray2 = secondArray;
+
+  //document.getElementById("input2").value=secondArray2;
+  document.write(secondArray2);
+}
+}
+
+</script>
+<head>
+  <style>
+  body {
+    text-align:center;
+    font-family:"Trebuchet MS", Verdana;
+    font-size:1.5em;
+  }
+  </style>
+  <title>Info</title>
+
+</head>
+<body>
+  Encoder
+  <br>
+  Decoder:<br><a href="LucasWolke.github.io">hier</a><br>
+<br>
+		<form name="anzeige">
+<input type="text" id="input1" value="LUCAS" size="20">
+<br>
+<input type="text" id="input3" value="5" size="3">
+<br>
+<!-- <input type="text" id="input2" value="9" size="20"> -->
+<br>
+<input onclick="encode()" type="button" value="Verschlüsseln" id="button" />
+</form>
+</body>
+
+</html>

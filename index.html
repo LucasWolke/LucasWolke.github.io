@@ -1,17 +1,53 @@
 <html>
+<meta charset = "utf-8">
 <head>
-<style>
-body {
-font-family:"Trebuchet MS";
-text-align:center;
-}
-</style>
+  <style>
+  body {
+    text-align:center;
+    font-family:"Trebuchet MS", Verdana;
+    font-size:1.5em;
+  }
+  </style>
+  <title>Info</title>
+  <script>
+  function decode(){
+    var input1 = document.getElementById("input1").value;
+    var verschiebung = parseFloat(document.getElementById("input2").value);
+    var length = input1.length;
+
+
+    for(i=0;i<length;i++){
+    var decode = input1.charCodeAt(i)-verschiebung;
+
+    var meinArray = [decode];
+
+      //document.write(meinArray);
+
+    var back = String.fromCharCode(meinArray);
+    var secondArray = [back]+" ";
+
+    console.log(back);
+    var secondArray2 = secondArray;
+    document.write(secondArray2)
+  }
+
+
+  }
+
+  </script>
 </head>
 <body>
-<h1>Hello World</h1>
+Decoder
 <br>
-<p>
-Hallo Alex!, anscheinend war ich too legit, too legit to not commit.
-</p>
+Encoder:<br><a href="LucasWolke.github.io/Encoder">hier</a><br>
+<br>
+		<form name="anzeige">
+<input type="text" id="input1" value="QZHFX" size="20">
+<br>
+<input type="text" id="input2" value="5" size="20">
+<br>
+<input onclick="decode()" type="button" value="Entschlüsseln" id="button" />
+</form>
 </body>
+
 </html>
