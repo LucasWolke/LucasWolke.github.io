@@ -14,10 +14,15 @@
     var input1 = document.getElementById("input1").value;
     var verschiebung = parseFloat(document.getElementById("input2").value);
     var length = input1.length;
-
+//swag
 
     for(i=0;i<length;i++){
     var decode = input1.charCodeAt(i)-verschiebung;
+
+    if (decode < 64)
+    {
+     decode = 91 - verschiebung;
+    }
 
     var meinArray = [decode];
 

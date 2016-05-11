@@ -6,7 +6,7 @@ function encode(){
   var length = input1.length;
   //parseFloat macht aus String Intenger! <3
   var verschiebung = parseFloat(document.getElementById("input3").value);
-
+  //swag
   for(i=0;i<length;i++){
   var decode = input1.charCodeAt(i)+verschiebung;
   var toomuch = decode;
@@ -20,7 +20,7 @@ if (decode > 90)
     //document.write(meinArray);
 
   var back = String.fromCharCode(meinArray);
-  var secondArray = [back]+" ";
+  var secondArray = [back];
 
   console.log(secondArray);
   var secondArray2 = secondArray;
@@ -45,7 +45,7 @@ if (decode > 90)
 <body>
   Encoder
   <br>
-  Decoder:<br><a href="LucasWolke.github.io">hier</a><br>
+  Decoder:<br><a href="index.html">hier</a><br>
 <br>
 		<form name="anzeige">
 <input type="text" id="input1" value="LUCAS" size="20">
