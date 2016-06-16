@@ -1,59 +1,254 @@
+<!DOCTYPE html>
 <html>
-<meta charset = "utf-8">
-<head>
-  <style>
-  body {
-    text-align:center;
-    font-family:"Trebuchet MS", Verdana;
-    font-size:1.5em;
-  }
-  </style>
-  <title>Info</title>
-  <script>
-  function decode(){
-    var input1 = document.getElementById("input1").value;
-    var verschiebung = parseFloat(document.getElementById("input2").value);
-    var length = input1.length;
-//swag
 
-    for(i=0;i<length;i++){
-    var decode = input1.charCodeAt(i)-verschiebung;
-    var modulo = decode%verschiebung;
-    //alert(modulo);
-    if (decode < 65)
-    {
-     decode = 90 -( 64 - decode );
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="snake game">
+    <meta name="keywords" content="snake,game,javascript,html">
+    <meta name="author" content="Lucas Wolkersdorfer kappa">
+
+    <script>
+
+        var direction2 = 1;
+        var direction = 1;
+
+        document.onkeydown = function(event) {
+
+            if (event.keyCode == 39) {
+                direction = 1;
+            } else if (event.keyCode == 38) {
+                direction = -60;
+            } else if (event.keyCode == 37) {
+                direction = -1;
+            } else if (event.keyCode == 40) {
+                direction = 60;
+            }
+            if (event.keyCode == 68) {
+                direction2 = 1;
+            } else if (event.keyCode == 87) {
+                direction2 = -60;
+            } else if (event.keyCode == 65) {
+                direction2 = -1;
+            } else if (event.keyCode == 83) {
+                direction2 = 60;
+            }
+            if (event.keyCode == 32) {
+                drop();
+            }
+            if (event.keyCode == 13) {
+                drop2();
+            }
+
+        }
+    </script>
+
+    <style>
+        #scoreboard {
+          width: 500px;
+          height: 600px;
+          float: right;
+          margin-right:200px;
+          margin-top: -800px;
+          border-style: dashed;
+          font-family:"Trebuchet MS",Verdana;
+          font-size:1.3em;
+        }
+        #feld {
+            width: 1500px;
+            height: 800px;
+            background-color: black;
+        }
+
+        img {
+            float: left;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <script>
+
+var scoreplayer1 = 0;
+var scoreplayer11 = parseInt(scoreplayer1);
+var scoreplayer2 = 0;
+var scoreplayer22 = parseInt(scoreplayer2);
+    function drop(){
+      var index2 = snake2[0] + direction;
+      var dropped = snake2.pop();
+      document.images[dropped].src = "worm3.gif";
+
+    }
+    function drop2(){
+      var index3 = snake[0] + direction;
+      var dropped2 = snake.pop();
+      document.images[dropped2].src = "worm4.gif";
+    }
+    function score1(){
+      var score11 = document.getElementById("score1");
+      score11.value = scoreplayer11;
     }
 
-    var meinArray = [decode];
+    function score2(){
+      var score22 = document.getElementById("score2");
+      score22.value = scoreplayer22;
+    }
+        //variables
 
-      //document.write(meinArray);
-
-    var back = String.fromCharCode(meinArray);
-    var secondArray = [back]+" ";
-
-    console.log(back);
-    var secondArray2 = secondArray;
-    document.write(secondArray2)
-  }
+        var snake = new Array();
+        var snake2 = new Array();
 
 
-  }
+        document.write('<h1>Snake</h1>')
 
-  </script>
-</head>
-<body>
-Decoder
+        //spielfeld erzeugen
+        //erste Reihe
+        document.write('<div id="feld"></img>')
+
+        for (var i = 0; i < 60; i++) {
+            document.write('<img src="end.gif"></img>')
+        }
+
+        //filler
+        for (var j = 0; j < 32; j++) {
+
+            for (var i = 0; i < 60; i++) {
+                if (i == 0 || i == 59) {
+                    document.write('<img src="end.gif"></img>')
+                } else {
+                    document.write('<img src="blank.gif"></img>')
+                }
+            }
+
+        }
+
+        for (var i = 0; i < 60; i++) {
+            document.write('<img src="end.gif"></img>')
+        }
+        document.write('</div>')
+
+        //spawn definieren
+
+        var blank = document.images[62].src;
+        var first = 0;
+
+        do {
+            first = Math.floor(Math.random() * 1920)
+            first2 = Math.floor(Math.random() * 1920)
+        } while (document.images[first].src != blank || (first % 60 > 10)&&document.images[first2].src != blank && (first2 % 60 > 10))
+
+        document.images[first].src = 'worm.gif';
+        document.images[first2].src = 'wormhead.gif';
+
+        snake[0] = first;
+        snake2[0] = first2;
+
+        //food output defined
+
+        do {
+            first = Math.floor(Math.random() * 1920);
+        } while (document.images[first].src != blank);
+        do {
+            first2 = Math.floor(Math.random() * 1920);
+        } while (document.images[first2].src != blank);
+
+        document.images[first].src = "food.gif"
+
+        var food = document.images[first].src;
+
+        function move() {
+
+            var score2 = 0;
+            var index = snake[0] + direction;
+
+            if (document.images[index].src == blank) {
+
+                var end = snake.pop();
+                document.images[end].src = "blank.gif";
+                document.images[index].src = "worm.gif";
+                snake.unshift(index);
+
+                var game = setTimeout("move()", 100)
+
+            }
+            else if (document.images[index].src == food) {
+                snake.unshift(index);
+                document.images[index].src = "worm.gif";
+                scoreplayer11 = scoreplayer11 + 100;
+                score1();
+                do {
+                    var next = first = Math.floor(Math.random() * 1920);
+                } while (document.images[first].src != blank);
+                document.images[next].src = "food.gif";
+
+                game = setTimeout("move()", 100);
+
+             } else {
+                clearTimeout(game);
+                //alert("gg");
+                document.getElementById("dead2").value="DEAD";
+            }
+        }
+        move();
+
+        function move2() {
+            var score1 = 0;
+            var index2 = snake2[0] + direction2;
+
+            if (document.images[index2].src == blank) {
+
+                var end2 = snake2.pop();
+                document.images[end2].src = "blank.gif";
+                document.images[index2].src = "wormhead.gif";
+                snake2.unshift(index2);
+
+                var game2 = setTimeout("move2()", 100)
+
+            } else if (document.images[index2].src == food) {
+                snake2.unshift(index2);
+                document.images[index2].src = "wormhead.gif";
+                 scoreplayer22 = scoreplayer22 + 100;
+                 score2();
+                do {
+
+                    var next2 = first2 = Math.floor(Math.random() * 1920);
+                } while (document.images[first2].src != blank);
+                document.images[next2].src = "food.gif";
+
+                game2 = setTimeout("move2()", 100);
+
+             } else {
+                clearTimeout(game2);
+                //alert ?
+                document.getElementById("dead1").value="DEAD";
+            }
+        }
+        move2();
+    </script>
+
+
+<div id="scoreboard">
+  PLAYER1: <br>
+<input type="text" id="score1">Score of Player1</input><input type="text" id="dead1" length="4"></input>
+<br><br><br>
+PLAYER2:<br>
+<input type="text" id="score2">Score of Player2</input><input type="text" id="dead2"></input>
 <br>
-Encoder:<br><a href="LucasWolke.github.io/Encoder">hier</a><br>
+<br><br>
+GUIDE:
 <br>
-		<form name="anzeige">
-<input type="text" id="input1" value="QZHFX" size="20">
-<br>
-<input type="text" id="input2" value="5" size="20">
-<br>
-<input onclick="decode()" type="button" value="Entschlüsseln" id="button" />
-</form>
+Player1: Arrow Keys to move and enter to drop!
+<br><br>
+Player2: WASD to move and space to drop!
+<br><br>
+Drop ?: <br> You drop your last tile -> when you only have 1 tile you Die.<br><br>
+NOTE: YOU DO NOT LOOSE POINTS WHEN DROPPING!
+
+</div>
 </body>
 
 </html>
