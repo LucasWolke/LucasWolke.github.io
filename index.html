@@ -267,7 +267,7 @@
                 document.images[index2].src = "wormhead.gif";
                 snake2.unshift(index2);
 
-                var game2 = setTimeout("move2()", 70)
+                var game2 = setTimeout("move2()", 100)
 
             } else if (document.images[index2].src == food) {
                 snake2.unshift(index2);
@@ -291,6 +291,7 @@
                  alert("GG")
                }
             }
+            
         }
         move2();
 
