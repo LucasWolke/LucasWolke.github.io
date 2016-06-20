@@ -10,6 +10,11 @@
 
     <script>
 
+
+        //variables
+
+        var snake = new Array();
+        var snake2 = new Array();
         var direction2 = 1;
         var direction = 1;
 
@@ -17,7 +22,8 @@
 
             if (event.keyCode == 39) {
                 direction = 1;
-            } else if (event.keyCode == 38) {
+            }
+              else if (event.keyCode == 38) {
                 direction = -60;
             } else if (event.keyCode == 37) {
                 direction = -1;
@@ -41,11 +47,12 @@
             }
 
         }
+
     </script>
 
     <style>
         #scoreboard {
-          width: 500px;
+          width: 300px;
           height: 600px;
           float: right;
           //margin-right:200px;
@@ -65,42 +72,81 @@
         }
     </style>
 
-</head>
+  </head>
 
-<body>
+  <body>
 
 
 
     <script>
 
-var scoreplayer1 = 0;
-var scoreplayer11 = parseInt(scoreplayer1);
-var scoreplayer2 = 0;
-var scoreplayer22 = parseInt(scoreplayer2);
+  var gameend = 0;
+  var winner = 0;
+  var scoreplayer1 = 0;
+  var scoreplayer11 = parseInt(scoreplayer1);
+  var scoreplayer2 = 0;
+  var scoreplayer22 = parseInt(scoreplayer2);
     function drop(){
-      var index2 = snake2[0] + direction;
-      var dropped = snake2.pop();
-      document.images[dropped].src = "worm3.gif";
+      var index1 = snake2[0] + direction2;
+
+      var dropped1 = snake2.pop();
+
+    if (direction2 == 1){
+    var trumpwall2 = 60;
+    }
+    else if (direction2 == -1){
+    var trumpwall2 = -60;
+    }
+    else if (direction2 == 60){
+    var trumpwall2 = -1;
+    }
+    else if (direction2 == -60){
+    var trumpwall2 = 1;
+    }
+      document.images[dropped1].src = "worm3.gif";
+      document.images[dropped1-trumpwall2].src = "worm3.gif";
+      document.images[dropped1+trumpwall2+trumpwall2].src = "worm3.gif";
+      document.images[dropped1-trumpwall2-trumpwall2].src = "worm3.gif";
+      document.images[dropped1+trumpwall2].src = "worm3.gif";
+
 
     }
     function drop2(){
-      var index3 = snake[0] + direction;
+      var index2 = snake[0] + direction;
+
       var dropped2 = snake.pop();
+
+  if (direction == 1){
+  var trumpwall = 60;
+  }
+  else if (direction == -1){
+  var trumpwall = -60;
+  }
+  else if (direction == 60){
+  var trumpwall = -1;
+  }
+  else if (direction == -60){
+  var trumpwall = 1;
+  }
       document.images[dropped2].src = "worm4.gif";
+      document.images[dropped2-trumpwall].src = "worm4.gif";
+      document.images[dropped2+trumpwall+trumpwall].src = "worm4.gif";
+      document.images[dropped2-trumpwall-trumpwall].src = "worm4.gif";
+      document.images[dropped2+trumpwall].src = "worm4.gif";
+
+
     }
     function score1(){
-      var score11 = document.getElementById("score1");
+      var score11 = parseInt(document.getElementById("score1"));
       score11.value = scoreplayer11;
+
     }
 
     function score2(){
-      var score22 = document.getElementById("score2");
+      var score22 = parseInt(document.getElementById("score2"));
       score22.value = scoreplayer22;
-    }
-        //variables
 
-        var snake = new Array();
-        var snake2 = new Array();
+    }
 
 
         document.write('<h1>Snake</h1>')
@@ -138,8 +184,13 @@ var scoreplayer22 = parseInt(scoreplayer2);
 
         do {
             first = Math.floor(Math.random() * 1920)
+
+        } while (document.images[first].src != blank || (first % 60 > 5))
+
+        do {
+
             first2 = Math.floor(Math.random() * 1920)
-        } while (document.images[first].src != blank || (first % 60 > 10)&&document.images[first2].src != blank && (first2 % 60 > 10))
+        } while (document.images[first2].src != blank || (first2 % 60 > 5))
 
         document.images[first].src = 'worm.gif';
         document.images[first2].src = 'wormhead.gif';
@@ -182,8 +233,12 @@ var scoreplayer22 = parseInt(scoreplayer2);
                 score1();
                 do {
                     var next = first = Math.floor(Math.random() * 1920);
+
+
                 } while (document.images[first].src != blank);
                 document.images[next].src = "food.gif";
+
+
 
                 game = setTimeout("move()", 100);
 
@@ -191,6 +246,12 @@ var scoreplayer22 = parseInt(scoreplayer2);
                 clearTimeout(game);
                 //alert("gg");
                 document.getElementById("dead2").value="DEAD";
+
+                gameend = gameend + 1;
+
+                if(gameend == 2){
+                  alert("GG")
+                }
             }
         }
         move();
@@ -206,7 +267,7 @@ var scoreplayer22 = parseInt(scoreplayer2);
                 document.images[index2].src = "wormhead.gif";
                 snake2.unshift(index2);
 
-                var game2 = setTimeout("move2()", 100)
+                var game2 = setTimeout("move2()", 70)
 
             } else if (document.images[index2].src == food) {
                 snake2.unshift(index2);
@@ -224,10 +285,17 @@ var scoreplayer22 = parseInt(scoreplayer2);
              } else {
                 clearTimeout(game2);
                 //alert ?
-                document.getElementById("dead1").value="DEAD";
+              document.getElementById("dead1").value="DEAD";
+               gameend = gameend + 1;
+               if(gameend == 2){
+                 alert("GG")
+               }
             }
         }
         move2();
+
+
+
     </script>
 
 
